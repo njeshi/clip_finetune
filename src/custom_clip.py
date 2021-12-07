@@ -195,7 +195,7 @@ class CLIP_Linear(pl.LightningModule):
 
         # freeze the image encoder, if needed
         if freeze_visual:
-            for param in self.image_encoder.parameters():
+            for param in self.model.visual.parameters():
                 param.requires_grad = False
 
         # freeze the parameters of text_transformer to save memory

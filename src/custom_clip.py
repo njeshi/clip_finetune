@@ -6,7 +6,7 @@ import pytorch_lightning as pl
 import torchmetrics
 
 
-class CLIP_Captions(pl.LightningModule):
+class CLIP_Contrastive(pl.LightningModule):
     """
     Custom CLIP wrapper that performs traning with captions
     """
@@ -95,12 +95,12 @@ class CLIP_Captions(pl.LightningModule):
         # compute loss
         image_logits = (image_features @ text_features.T) * torch.exp(self.temperature)
         loss = F.cross_entropy(image_logits, targets)
-        self.log('train/loss', loss, on_step=True, on_epoch=True)
+        self.log('train/loss', loss, on_epoch=True)
         
         # compute accuracy
         pred_labels = image_logits.argmax(dim=-1)
         acc = torchmetrics.functional.accuracy(pred_labels, targets)
-        self.log('train/accuracy', acc, on_step=True, on_epoch=True)
+        self.log('train/accuracy', acc, on_epoch=True)
 
         return loss
 
@@ -119,12 +119,12 @@ class CLIP_Captions(pl.LightningModule):
         # compute loss
         image_logits = (image_features @ text_features.T) * torch.exp(self.temperature)
         loss = F.cross_entropy(image_logits, targets)
-        self.log('val/loss', loss)
+        self.log('val/loss', loss, on_epoch=True)
 
         # compute accuracy
         pred_labels = image_logits.argmax(dim=-1)
         acc = torchmetrics.functional.accuracy(pred_labels, targets)
-        self.log('val/accuracy', acc)
+        self.log('val/accuracy', acc, on_epoch=True)
 
     def test_step(self, batch, batch_idx):
         """ The complete test loop """
@@ -173,8 +173,6 @@ class CLIP_Captions(pl.LightningModule):
         return image_logits.argmax(dim=-1)
     
     
-    
-    
 
 class CLIP_Linear(pl.LightningModule):
     """
@@ -185,9 +183,9 @@ class CLIP_Linear(pl.LightningModule):
     def __init__(
         self,
         clip_model,
+        num_classes=None,
         out_features=1024,
         freeze_visual=False,
-        num_classes=None,
         learning_rate=1e-4
     ):
         super().__init__()
@@ -233,7 +231,7 @@ class CLIP_Linear(pl.LightningModule):
 
         pred_labels = image_logits.argmax(dim=-1)
         acc = torchmetrics.functional.accuracy(pred_labels, true_labels)
-        self.log('train/accuracy', acc, on_step=True, on_epoch=True)
+        self.log('train/accuracy', acc, on_epoch=True)
 
         return loss
 
@@ -245,11 +243,11 @@ class CLIP_Linear(pl.LightningModule):
         image_logits = self.classifier(image_features)
 
         loss = F.cross_entropy(image_logits, true_labels)
-        self.log('val/loss', loss)
+        self.log('val/loss', loss, on_epoch=True)
 
         pred_labels = image_logits.argmax(dim=-1)
         acc = torchmetrics.functional.accuracy(pred_labels, true_labels)
-        self.log('val/accuracy', acc)
+        self.log('val/accuracy', acc, on_epoch=True)
 
     def test_step(self, batch, batch_idx):
         """ The complete test loop """

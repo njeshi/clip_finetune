@@ -1,4 +1,5 @@
 torch
 torchvision
+pytorch_lightning
 ftfy
 regex

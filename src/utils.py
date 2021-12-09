@@ -34,4 +34,8 @@ class TextTransformer:
         texts  = [template.format(class_label) for template in self.templates]
         tokens = [self.tokenizer.encode(text) for text in texts]
         padded = [self._pad_sentence(sent) for sent in tokens]
+<<<<<<< HEAD
         return torch.tensor(padded, dtype=torch.long)
+=======
+        return torch.tensor(padded, dtype=torch.long)
+>>>>>>> origin/master

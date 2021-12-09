@@ -133,11 +133,8 @@ class FoodDataModule(LightningDataModule):
             self.test_dataset.class_to_idx = self.dataset.class_to_idx
             
     
-<<<<<<< HEAD
-    def train_dataloader(self, sampler=None):
-=======
+
     def train_dataloader(self, sampler=None, drop_last=True):
->>>>>>> origin/master
         # Shuffle is mutually exlusive with sampler
         shuffle = True if not sampler else False
         
@@ -148,28 +145,23 @@ class FoodDataModule(LightningDataModule):
                           batch_size = self.batch_size, 
                           num_workers = os.cpu_count())
     
-<<<<<<< HEAD
-    def val_dataloader(self):
-=======
+
     def val_dataloader(self, drop_last=True):
->>>>>>> origin/master
         return DataLoader(self.val_dataset, 
                           shuffle = False,
                           drop_last = True, 
                           batch_size = self.batch_size, 
                           num_workers = os.cpu_count())
 
-<<<<<<< HEAD
-    def test_dataloader(self):
-=======
+
     def test_dataloader(self, drop_last=True):
->>>>>>> origin/master
         return DataLoader(self.test_dataset, 
                           shuffle = False,
                           drop_last = True, 
                           batch_size = self.batch_size, 
                           num_workers = os.cpu_count())
 
+    
 class KPerClassSampler(Sampler):
     """
     Sample k images from each class randomly

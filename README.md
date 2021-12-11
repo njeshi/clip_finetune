@@ -17,3 +17,30 @@ Repo structure:
 - `few_shot_learning` evaluates k-shot for different k values; uses the model itself to train
 - `few_shot_linear_probing` trains an additional linear classifier on top of its visual encoder 
 and follows a few-shot training manner; uses scikit-learn’s L-BFGS implementation with maximum 1,000 iterations.
+
+
+</br>
+CLIP Architecture
+<img src="https://i.ibb.co/QHZ1ksT/Screen-Shot-2021-12-11-at-2-00-08-PM.png" />
+
+</br>
+
+
+Zero shot accuracy on Food101
+
+| Model    | Top-1 Accuracy | Top-5 Accuracy |
+| -------- | -------------- | -------------- |
+| ViT-B/16 | 86.12          | 97.70          |
+| ViT-B/32 | 80.69          | 95.84          |
+| RN50     | 77.31          | 94.79          |
+| RN101    | 80.61          | 95.86          |
+
+
+</br>
+Few-shot linear probing
+
+Linear probe CLIP trains an additional linear classifier on top of its visual encoder and follows a few-shot training manner.
+
+<img src="https://i.ibb.co/MfxK6Gy/vit16kshotlinearprobe.png"/> 
+
+Zero-shot CLIP is as good as 64-shot linear probe CLIP.

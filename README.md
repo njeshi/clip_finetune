@@ -19,14 +19,14 @@ Repo structure:
 and follows a few-shot training manner; uses scikit-learn’s L-BFGS implementation with maximum 1,000 iterations.
 
 
-</br>
-CLIP Architecture
+**CLIP Architecture**
+
 <img src="https://i.ibb.co/QHZ1ksT/Screen-Shot-2021-12-11-at-2-00-08-PM.png" />
 
 </br>
 
 
-Zero shot accuracy on Food101
+**Zero shot accuracy on Food101**
 
 | Model    | Top-1 Accuracy | Top-5 Accuracy |
 | -------- | -------------- | -------------- |
@@ -36,8 +36,7 @@ Zero shot accuracy on Food101
 | RN101    | 80.61          | 95.86          |
 
 
-</br>
-Few-shot linear probing
+**Few-shot linear probing**
 
 Linear probe CLIP trains an additional linear classifier on top of its visual encoder and follows a few-shot training manner.
 
